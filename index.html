@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Julian Vance - Principal UX Architect</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #121212;
+            color: #EAEAEA;
+        }
+        .font-serif {
+            font-family: 'Cormorant Garamond', serif;
+        }
+        .text-gold {
+            color: #D4AF37;
+        }
+        .bg-gold {
+            background-color: #D4AF37;
+        }
+        .border-gold {
+            border-color: #D4AF37;
+        }
+        .hover\:bg-gold-dark:hover {
+            background-color: #c09e32;
+        }
+
+        /* Video Header */
+        .video-container {
+            position: relative;
+            width: 100%;
+            height: 80vh;
+            overflow: hidden;
+        }
+        #heroVideo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -100;
+            transform: translateX(-50%) translateY(-50%);
+            background-size: cover;
+        }
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: -50;
+        }
+
+        /* Interactive Animations */
+        .interactive-element {
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .interactive-element:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+        }
+        
+        /* Section Scroll Animations */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header & Navigation -->
+    <header class="bg-black/70 backdrop-blur-lg sticky top-0 z-50 shadow-lg shadow-black/20">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-3xl font-serif font-bold text-white">Julian Vance</a>
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="#about" class="text-gray-300 hover:text-gold transition-colors duration-300">About</a>
+                <a href="#projects" class="text-gray-300 hover:text-gold transition-colors duration-300">Projects</a>
+                <a href="#contact" class="bg-transparent border-2 border-gold text-gold px-5 py-2 rounded-full hover:bg-gold hover:text-black transition-all duration-300 font-medium">Contact</a>
+            </div>
+            <button class="md:hidden focus:outline-none">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Hero Section with Video -->
+    <section class="video-container">
+        <video autoplay loop muted playsinline id="heroVideo">
+            <!-- Royalty-free video from Pexels -->
+            <source src="https://videos.pexels.com/video-files/3209828/3209828-hd_1920_1080_25fps.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="video-overlay"></div>
+        <div class="container mx-auto px-6 h-full flex flex-col justify-center items-center text-center text-white relative z-10">
+            <h1 class="text-5xl md:text-7xl font-serif font-bold mb-4 leading-tight">Architecting Exclusive Digital Realities</h1>
+            <p class="text-lg md:text-xl text-gray-200 max-w-3xl mx-auto font-light">
+                A Principal UX Architect crafting bespoke, high-impact digital platforms for luxury brands and discerning clientele.
+            </p>
+            <div class="mt-10">
+                <a href="#projects" class="bg-gold text-black px-10 py-4 rounded-full text-lg font-semibold hover:bg-gold-dark transition-all duration-300 transform hover:scale-105 shadow-2xl">Explore My Creations</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Me Section -->
+    <section id="about" class="py-24 bg-[#1a1a1a] fade-in-section">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center gap-16">
+                <div class="md:w-1/3">
+                    <img src="https://images.unsplash.com/photo-1566753323558-f4e0952af115?q=80&w=2821&auto=format&fit=crop" 
+                         alt="Portrait of Julian Vance" 
+                         class="rounded-lg shadow-2xl shadow-black/50 w-full h-auto object-cover"
+                         onerror="this.onerror=null;this.src='https://placehold.co/600x800/121212/D4AF37?text=Julian+Vance';">
+                </div>
+                <div class="md:w-2/3">
+                    <h2 class="text-4xl font-serif font-bold text-white mb-6">My Design Philosophy</h2>
+                    <p class="text-gray-300 mb-4 leading-relaxed font-light">
+                        I believe luxury is not an aesthetic, but an experience. It's the seamless anticipation of need, the intuitive flow, and the quiet confidence of flawless execution. My work is dedicated to embedding this ethos into the digital realm.
+                    </p>
+                    <p class="text-gray-300 mb-6 leading-relaxed font-light">
+                        For over a decade, I've partnered with elite brands to build digital flagships that are as prestigious as their physical counterparts. I merge deep user psychology with cutting-edge technology to create platforms that are not just used, but felt. My process is meticulous, collaborative, and always in pursuit of the exceptional.
+                    </p>
+                    <a href="#contact" class="text-gold font-medium hover:underline text-lg">Initiate a Conversation &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-24 fade-in-section">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-serif font-bold text-center text-white mb-16">Signature Projects</h2>
+            
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- Project 1: Real Estate -->
+                <div class="interactive-element bg-[#1a1a1a] rounded-lg overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1613553423758-d8b75727a211?q=80&w=2831&auto=format&fit=crop" 
+                         alt="Luxury real estate project mockup" 
+                         class="w-full h-64 object-cover"
+                         onerror="this.onerror=null;this.src='https://placehold.co/800x600/1a1a1a/D4AF37?text=Aethelred+Estates';">
+                    <div class="p-8">
+                        <h3 class="text-2xl font-serif font-bold text-white mb-2">Aethelred Estates</h3>
+                        <p class="text-gold font-medium mb-4">UX Architecture, 3D Integration, Client Portal</p>
+                        <p class="text-gray-400 font-light leading-relaxed">
+                            A bespoke digital experience for a developer of ultra-luxury properties. The platform features immersive 3D walkthroughs and a secure, private client portal for managing investments and customizations.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Project 2: E-commerce -->
+                <div class="interactive-element bg-[#1a1a1a] rounded-lg overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1551947733-4a623729312b?q=80&w=2787&auto=format&fit=crop" 
+                         alt="Luxury e-commerce project mockup" 
+                         class="w-full h-64 object-cover"
+                         onerror="this.onerror=null;this.src='https://placehold.co/800x600/1a1a1a/D4AF37?text=Chronos+Atelier';">
+                    <div class="p-8">
+                        <h3 class="text-2xl font-serif font-bold text-white mb-2">Chronos Atelier</h3>
+                        <p class="text-gold font-medium mb-4">Mobile-First Design, Personalization Engine</p>
+                        <p class="text-gray-400 font-light leading-relaxed">
+                            A highly-curated e-commerce platform for a bespoke watchmaker. The design focuses on heritage storytelling and a personalization engine that offers a 'digital concierge' shopping experience.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <footer id="contact" class="bg-black py-20 fade-in-section">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-4xl font-serif font-bold text-white mb-4">Commission a Masterpiece</h2>
+            <p class="text-gray-400 max-w-xl mx-auto mb-10 font-light">
+                I am currently considering new partnerships with brands that value exceptionalism. If you have a vision that demands a superior digital presence, I invite you to connect.
+            </p>
+            <a href="mailto:contact@julianvance.design" class="inline-block bg-gold text-black px-10 py-4 rounded-full text-lg font-semibold hover:bg-gold-dark transition-all duration-300 transform hover:scale-105 shadow-2xl">contact@julianvance.design</a>
+            <div class="mt-16 flex justify-center space-x-8">
+                 <a href="#" class="text-gray-500 hover:text-gold transition-colors">LinkedIn</a>
+                 <a href="#" class="text-gray-500 hover:text-gold transition-colors">Awwwards</a>
+                 <a href="#" class="text-gray-500 hover:text-gold transition-colors">Behance</a>
+            </div>
+            <p class="mt-16 text-sm text-gray-600">&copy; 2025 Julian Vance. The Apex of Digital Design.</p>
+        </div>
+    </footer>
+
+    <script>
+        // JavaScript for scroll-triggered animations
+        document.addEventListener("DOMContentLoaded", () => {
+            const sections = document.querySelectorAll('.fade-in-section');
+
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        // Optional: unobserve after it's visible so it doesn't re-animate
+                        // observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                rootMargin: '0px',
+                threshold: 0.1
+            });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+
+</body>
+</html>
