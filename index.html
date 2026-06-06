@@ -3,222 +3,1202 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Julian Vance - Principal UX Architect</title>
+    <title>BioExplorer: Plant Reproduction & Respiration Lab</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <!-- Lucide Icons for premium visual cues -->
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #121212;
-            color: #EAEAEA;
-        }
-        .font-serif {
-            font-family: 'Cormorant Garamond', serif;
-        }
-        .text-gold {
-            color: #D4AF37;
-        }
-        .bg-gold {
-            background-color: #D4AF37;
-        }
-        .border-gold {
-            border-color: #D4AF37;
-        }
-        .hover\:bg-gold-dark:hover {
-            background-color: #c09e32;
-        }
-
-        /* Video Header */
-        .video-container {
-            position: relative;
-            width: 100%;
-            height: 80vh;
-            overflow: hidden;
-        }
-        #heroVideo {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            z-index: -100;
-            transform: translateX(-50%) translateY(-50%);
-            background-size: cover;
-        }
-        .video-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.6);
-            z-index: -50;
-        }
-
-        /* Interactive Animations */
-        .interactive-element {
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
-        .interactive-element:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap');
         
-        /* Section Scroll Animations */
-        .fade-in-section {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
         }
-        .fade-in-section.is-visible {
-            opacity: 1;
-            transform: translateY(0);
+        .serif-title {
+            font-family: 'Playfair Display', serif;
+        }
+        /* Custom scrollbar aesthetics */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        /* Pulse Animation for interactive hotspots */
+        @keyframes pulse-glow {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.15); opacity: 1; filter: drop-shadow(0 0 10px rgba(34, 197, 94, 0.8)); }
+        }
+        .hotspot-pulse {
+            animation: pulse-glow 2s infinite ease-in-out;
+            transform-origin: center;
+        }
+        /* Custom progress bar styles */
+        .progress-bar-fill {
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
     </style>
 </head>
-<body class="antialiased">
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
 
-    <!-- Header & Navigation -->
-    <header class="bg-black/70 backdrop-blur-lg sticky top-0 z-50 shadow-lg shadow-black/20">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="text-3xl font-serif font-bold text-white">Julian Vance</a>
-            <div class="hidden md:flex space-x-8 items-center">
-                <a href="#about" class="text-gray-300 hover:text-gold transition-colors duration-300">About</a>
-                <a href="#projects" class="text-gray-300 hover:text-gold transition-colors duration-300">Projects</a>
-                <a href="#contact" class="bg-transparent border-2 border-gold text-gold px-5 py-2 rounded-full hover:bg-gold hover:text-black transition-all duration-300 font-medium">Contact</a>
+    <!-- Top Navigation Bar -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="bg-emerald-500 text-white p-2 rounded-xl shadow-md shadow-emerald-100">
+                    <i data-lucide="leaf" class="w-6 h-6 animate-pulse"></i>
+                </div>
+                <div>
+                    <span class="font-bold text-slate-900 text-lg tracking-tight">BioExplorer</span>
+                    <span class="text-xs block text-slate-500 font-semibold -mt-1">Plant Systems & Respiration</span>
+                </div>
             </div>
-            <button class="md:hidden focus:outline-none">
-                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-            </button>
-        </nav>
+            
+            <nav class="hidden md:flex space-x-1">
+                <button onclick="switchTab('learn')" id="nav-learn" class="px-4 py-2 rounded-lg font-semibold text-sm transition-all duration-200 bg-emerald-50 text-emerald-700">
+                    <i data-lucide="book-open" class="inline-block w-4 h-4 mr-1.5 -mt-0.5"></i> Learn Concepts
+                </button>
+                <button onclick="switchTab('quiz')" id="nav-quiz" class="px-4 py-2 rounded-lg font-semibold text-sm transition-all duration-200 text-slate-600 hover:text-slate-900 hover:bg-slate-100">
+                    <i data-lucide="award" class="inline-block w-4 h-4 mr-1.5 -mt-0.5"></i> Exam Hub (21 Marks)
+                </button>
+            </nav>
+
+            <div class="flex items-center space-x-4">
+                <!-- User Score Tracker -->
+                <div class="bg-slate-100 px-3 py-1.5 rounded-full flex items-center space-x-2 text-xs font-bold text-slate-700 border border-slate-200 shadow-sm">
+                    <span class="w-2.5 h-2.5 bg-emerald-500 rounded-full animate-ping"></span>
+                    <span>Classroom Score: <span id="global-score">0</span>/21</span>
+                </div>
+            </div>
+        </div>
     </header>
 
-    <!-- Hero Section with Video -->
-    <section class="video-container">
-        <video autoplay loop muted playsinline id="heroVideo">
-            <!-- Royalty-free video from Pexels -->
-            <source src="https://videos.pexels.com/video-files/3209828/3209828-hd_1920_1080_25fps.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-        <div class="video-overlay"></div>
-        <div class="container mx-auto px-6 h-full flex flex-col justify-center items-center text-center text-white relative z-10">
-            <h1 class="text-5xl md:text-7xl font-serif font-bold mb-4 leading-tight">Architecting Exclusive Digital Realities</h1>
-            <p class="text-lg md:text-xl text-gray-200 max-w-3xl mx-auto font-light">
-                A Principal UX Architect crafting bespoke, high-impact digital platforms for luxury brands and discerning clientele.
-            </p>
-            <div class="mt-10">
-                <a href="#projects" class="bg-gold text-black px-10 py-4 rounded-full text-lg font-semibold hover:bg-gold-dark transition-all duration-300 transform hover:scale-105 shadow-2xl">Explore My Creations</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Me Section -->
-    <section id="about" class="py-24 bg-[#1a1a1a] fade-in-section">
-        <div class="container mx-auto px-6">
-            <div class="flex flex-col md:flex-row items-center gap-16">
-                <div class="md:w-1/3">
-                    <img src="https://images.unsplash.com/photo-1566753323558-f4e0952af115?q=80&w=2821&auto=format&fit=crop" 
-                         alt="Portrait of Julian Vance" 
-                         class="rounded-lg shadow-2xl shadow-black/50 w-full h-auto object-cover"
-                         onerror="this.onerror=null;this.src='https://placehold.co/600x800/121212/D4AF37?text=Julian+Vance';">
-                </div>
-                <div class="md:w-2/3">
-                    <h2 class="text-4xl font-serif font-bold text-white mb-6">My Design Philosophy</h2>
-                    <p class="text-gray-300 mb-4 leading-relaxed font-light">
-                        I believe luxury is not an aesthetic, but an experience. It's the seamless anticipation of need, the intuitive flow, and the quiet confidence of flawless execution. My work is dedicated to embedding this ethos into the digital realm.
-                    </p>
-                    <p class="text-gray-300 mb-6 leading-relaxed font-light">
-                        For over a decade, I've partnered with elite brands to build digital flagships that are as prestigious as their physical counterparts. I merge deep user psychology with cutting-edge technology to create platforms that are not just used, but felt. My process is meticulous, collaborative, and always in pursuit of the exceptional.
-                    </p>
-                    <a href="#contact" class="text-gold font-medium hover:underline text-lg">Initiate a Conversation &rarr;</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects" class="py-24 fade-in-section">
-        <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-serif font-bold text-center text-white mb-16">Signature Projects</h2>
+    <!-- Main Content Grid -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <!-- LEARNING & SIMULATION MODULES (TAB 1) -->
+        <div id="tab-learn" class="space-y-8">
             
-            <div class="grid md:grid-cols-2 gap-12">
-                <!-- Project 1: Real Estate -->
-                <div class="interactive-element bg-[#1a1a1a] rounded-lg overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1613553423758-d8b75727a211?q=80&w=2831&auto=format&fit=crop" 
-                         alt="Luxury real estate project mockup" 
-                         class="w-full h-64 object-cover"
-                         onerror="this.onerror=null;this.src='https://placehold.co/800x600/1a1a1a/D4AF37?text=Aethelred+Estates';">
-                    <div class="p-8">
-                        <h3 class="text-2xl font-serif font-bold text-white mb-2">Aethelred Estates</h3>
-                        <p class="text-gold font-medium mb-4">UX Architecture, 3D Integration, Client Portal</p>
-                        <p class="text-gray-400 font-light leading-relaxed">
-                            A bespoke digital experience for a developer of ultra-luxury properties. The platform features immersive 3D walkthroughs and a secure, private client portal for managing investments and customizations.
+            <!-- Welcome Jumbotron -->
+            <div class="bg-gradient-to-r from-emerald-600 to-teal-700 rounded-3xl p-8 md:p-12 text-white shadow-xl shadow-emerald-900/15 relative overflow-hidden">
+                <div class="absolute -right-10 -bottom-10 opacity-10 pointer-events-none">
+                    <i data-lucide="sprout" class="w-80 h-80"></i>
+                </div>
+                <div class="max-w-3xl relative z-10">
+                    <span class="bg-emerald-500/30 text-emerald-200 px-3 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider">Curriculum Standard</span>
+                    <h1 class="serif-title text-3xl md:text-5xl font-bold mt-4 mb-3 leading-tight">Plant Reproduction & Energetics Labs</h1>
+                    <p class="text-emerald-100/90 text-sm md:text-base leading-relaxed mb-6">
+                        Explore interactive simulations based on <strong>PLANT REPRODUCTION.pdf</strong>. Study the anatomy of flowers, trigger pollination pathways, watch seeds disperse, and balance metabolic energy transformations.
+                    </p>
+                    <div class="flex flex-wrap gap-3">
+                        <button onclick="scrollToSection('anatomy-lab')" class="bg-white text-emerald-800 font-bold px-5 py-2.5 rounded-xl shadow-lg shadow-emerald-900/20 text-sm hover:bg-slate-100 transition">
+                            Explore Flower Anatomy
+                        </button>
+                        <button onclick="scrollToSection('pollination-lab')" class="bg-emerald-500 text-white font-bold px-5 py-2.5 rounded-xl shadow-lg border border-emerald-400/40 text-sm hover:bg-emerald-400 transition">
+                            Pollination Sandbox
+                        </button>
+                        <button onclick="scrollToSection('energy-lab')" class="bg-teal-800 text-white font-bold px-5 py-2.5 rounded-xl border border-teal-600 text-sm hover:bg-teal-900 transition">
+                            Energetics & Metabolism
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 1: FLOWER ANATOMY EXPLORER -->
+            <section id="anatomy-lab" class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 shadow-sm">
+                <div class="flex flex-col lg:flex-row gap-8 items-start">
+                    
+                    <!-- Left: Dynamic Diagram & Hotspots -->
+                    <div class="w-full lg:w-1/2 flex flex-col items-center">
+                        <div class="w-full flex justify-between items-center mb-4">
+                            <div>
+                                <h2 class="font-extrabold text-slate-900 text-xl md:text-2xl flex items-center gap-2">
+                                    <span class="bg-emerald-100 text-emerald-700 p-1.5 rounded-lg"><i data-lucide="sprout" class="w-5 h-5"></i></span>
+                                    1. Interactive Flower Anatomy
+                                </h2>
+                                <p class="text-xs text-slate-500 mt-1">Select a flower structure or hotspot to explore its biology.</p>
+                            </div>
+                        </div>
+
+                        <!-- Flower Interactive SVG representing exact structures from the worksheet -->
+                        <div class="bg-slate-50 rounded-2xl p-4 border border-slate-150 w-full flex items-center justify-center relative min-h-[400px]">
+                            <svg viewBox="0 0 500 400" class="w-full max-w-[420px] h-auto drop-shadow-md">
+                                <!-- Sepal (Base green leaf structures) -->
+                                <path id="svg-sepal" d="M 210,280 C 190,260 160,260 150,280 C 180,310 210,300 210,280 Z" fill="#4ade80" stroke="#166534" stroke-width="2" class="cursor-pointer transition-all hover:brightness-110" onclick="selectAnatomy('Sepal')"/>
+                                <path id="svg-sepal-r" d="M 290,280 C 310,260 340,260 350,280 C 320,310 290,300 290,280 Z" fill="#4ade80" stroke="#166534" stroke-width="2" class="cursor-pointer transition-all hover:brightness-110" onclick="selectAnatomy('Sepal')"/>
+                                <path d="M 220,290 C 200,310 220,350 250,350 C 280,350 300,310 280,290 Z" fill="#22c55e" stroke="#15803d" stroke-width="2" />
+                                <rect x="240" y="340" width="20" height="60" rx="10" fill="#15803d" />
+
+                                <!-- Petals (Attractive red petals) -->
+                                <path id="svg-petal-l" d="M 210,280 C 140,280 80,220 100,160 C 130,160 170,220 210,280 Z" fill="#f43f5e" stroke="#be123c" stroke-width="2" class="cursor-pointer transition hover:opacity-90" onclick="selectAnatomy('Petals')"/>
+                                <path id="svg-petal-r" d="M 290,280 C 360,280 420,220 400,160 C 370,160 330,220 290,280 Z" fill="#f43f5e" stroke="#be123c" stroke-width="2" class="cursor-pointer transition hover:opacity-90" onclick="selectAnatomy('Petals')"/>
+                                <path id="svg-petal-b" d="M 250,290 C 150,330 130,190 190,190 C 230,190 240,270 250,290 Z" fill="#e11d48" stroke="#9f1239" stroke-width="2" class="cursor-pointer transition hover:opacity-90" onclick="selectAnatomy('Petals')"/>
+                                <path id="svg-petal-b2" d="M 250,290 C 350,330 370,190 310,190 C 270,190 260,270 250,290 Z" fill="#e11d48" stroke="#9f1239" stroke-width="2" class="cursor-pointer transition hover:opacity-90" onclick="selectAnatomy('Petals')"/>
+
+                                <!-- Pistil / Carpel (Female Structures) -->
+                                <!-- Ovary (Base Swell) -->
+                                <ellipse id="svg-ovary" cx="250" cy="250" rx="35" ry="40" fill="#86efac" stroke="#166534" stroke-width="3" class="cursor-pointer transition hover:brightness-105" onclick="selectAnatomy('Ovary')"/>
+                                <!-- Ovules inside Ovary -->
+                                <circle id="svg-ovule-1" cx="238" cy="240" r="7" fill="#fef08a" stroke="#ca8a04" stroke-width="1.5" class="cursor-pointer" onclick="selectAnatomy('Ovule/Seed')"/>
+                                <circle id="svg-ovule-2" cx="238" cy="260" r="7" fill="#fef08a" stroke="#ca8a04" stroke-width="1.5" class="cursor-pointer" onclick="selectAnatomy('Ovule/Seed')"/>
+                                <circle id="svg-ovule-3" cx="262" cy="240" r="7" fill="#fef08a" stroke="#ca8a04" stroke-width="1.5" class="cursor-pointer" onclick="selectAnatomy('Ovule/Seed')"/>
+                                <circle id="svg-ovule-4" cx="262" cy="260" r="7" fill="#fef08a" stroke="#ca8a04" stroke-width="1.5" class="cursor-pointer" onclick="selectAnatomy('Ovule/Seed')"/>
+                                
+                                <!-- Style (Connecting tube) -->
+                                <path id="svg-style" d="M 243,210 L 243,100 Q 243,85 245,85 L 255,85 Q 257,85 257,100 L 257,210 Z" fill="#86efac" stroke="#166534" stroke-width="2" class="cursor-pointer transition hover:brightness-105" onclick="selectAnatomy('Style')"/>
+                                <!-- Stigma (Sticky Top landing surface) -->
+                                <path id="svg-stigma" d="M 235,85 C 230,73 240,65 250,75 C 260,65 270,73 265,85 Z" fill="#22c55e" stroke="#15803d" stroke-width="2.5" class="cursor-pointer transition hover:brightness-110" onclick="selectAnatomy('Stigma')"/>
+                                
+                                <!-- Stamens (Male Parts) -->
+                                <!-- Filament Left -->
+                                <path id="svg-filament-l" d="M 215,275 Q 160,250 180,120" fill="none" stroke="#eab308" stroke-width="3" class="cursor-pointer transition hover:stroke-amber-500" onclick="selectAnatomy('Filament')"/>
+                                <!-- Anther Left -->
+                                <ellipse id="svg-anther-l" cx="180" cy="115" rx="10" ry="14" fill="#eab308" stroke="#ca8a04" stroke-width="2" transform="rotate(-15 180 115)" class="cursor-pointer transition hover:scale-110" onclick="selectAnatomy('Anther')"/>
+                                <!-- Pollen particles visually on left anther -->
+                                <circle cx="176" cy="110" r="1.5" fill="#fff" />
+                                <circle cx="184" cy="114" r="1.5" fill="#fff" />
+                                <circle cx="180" cy="120" r="1.5" fill="#fff" />
+
+                                <!-- Filament Right -->
+                                <path id="svg-filament-r" d="M 285,275 Q 340,250 320,120" fill="none" stroke="#eab308" stroke-width="3" class="cursor-pointer transition hover:stroke-amber-500" onclick="selectAnatomy('Filament')"/>
+                                <!-- Anther Right -->
+                                <ellipse id="svg-anther-r" cx="320" cy="115" rx="10" ry="14" fill="#eab308" stroke="#ca8a04" stroke-width="2" transform="rotate(15 320 115)" class="cursor-pointer transition hover:scale-110" onclick="selectAnatomy('Anther')"/>
+                                <!-- Pollen particles visually on right anther -->
+                                <circle cx="316" cy="110" r="1.5" fill="#fff" />
+                                <circle cx="324" cy="114" r="1.5" fill="#fff" />
+                                <circle cx="320" cy="120" r="1.5" fill="#fff" />
+
+                                <!-- Pulsing Interactive Nodes overlay -->
+                                <circle cx="180" cy="115" r="9" fill="rgba(234, 179, 8, 0.45)" class="hotspot-pulse cursor-pointer" onclick="selectAnatomy('Anther')" />
+                                <circle cx="250" cy="78" r="9" fill="rgba(34, 197, 94, 0.45)" class="hotspot-pulse cursor-pointer" onclick="selectAnatomy('Stigma')" />
+                                <circle cx="250" cy="150" r="9" fill="rgba(34, 197, 94, 0.45)" class="hotspot-pulse cursor-pointer" onclick="selectAnatomy('Style')" />
+                                <circle cx="250" cy="250" r="9" fill="rgba(34, 197, 94, 0.45)" class="hotspot-pulse cursor-pointer" onclick="selectAnatomy('Ovary')" />
+                                <circle cx="238" cy="250" r="7" fill="rgba(234, 240, 138, 0.6)" class="hotspot-pulse cursor-pointer" onclick="selectAnatomy('Ovule/Seed')" />
+                                <circle cx="338" cy="285" r="9" fill="rgba(74, 222, 128, 0.45)" class="hotspot-pulse cursor-pointer" onclick="selectAnatomy('Sepal')" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Right: Info Details & Classification Tabs -->
+                    <div class="w-full lg:w-1/2 flex flex-col justify-between self-stretch space-y-6">
+                        <div class="space-y-4">
+                            <span class="bg-indigo-100 text-indigo-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Structure Analyzer</span>
+                            <h3 id="anatomy-title" class="text-2xl font-bold text-slate-900">Choose a flower component</h3>
+                            <div class="flex gap-2">
+                                <span id="anatomy-gender" class="text-xs font-semibold px-2.5 py-1 rounded-md hidden"></span>
+                            </div>
+                            <p id="anatomy-desc" class="text-slate-600 leading-relaxed text-sm md:text-base">
+                                Select any of the labeled buttons below or tap on the pulsing hotspots inside the flower's visual diagram to explore its operational and reproductive physiology.
+                            </p>
+                        </div>
+
+                        <!-- Label Grid Buttons -->
+                        <div>
+                            <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Structure Quick Selection</h4>
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                                <button onclick="selectAnatomy('Anther')" class="btn-part p-2.5 rounded-xl border border-slate-200 hover:border-emerald-500 hover:bg-emerald-50/50 text-xs font-bold transition text-left flex items-center justify-between">
+                                    <span>Anther</span> <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i>
+                                </button>
+                                <button onclick="selectAnatomy('Filament')" class="btn-part p-2.5 rounded-xl border border-slate-200 hover:border-emerald-500 hover:bg-emerald-50/50 text-xs font-bold transition text-left flex items-center justify-between">
+                                    <span>Filament</span> <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i>
+                                </button>
+                                <button onclick="selectAnatomy('Pollen')" class="btn-part p-2.5 rounded-xl border border-slate-200 hover:border-emerald-500 hover:bg-emerald-50/50 text-xs font-bold transition text-left flex items-center justify-between">
+                                    <span>Pollen</span> <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i>
+                                </button>
+                                <button onclick="selectAnatomy('Stigma')" class="btn-part p-2.5 rounded-xl border border-slate-200 hover:border-emerald-500 hover:bg-emerald-50/50 text-xs font-bold transition text-left flex items-center justify-between">
+                                    <span>Stigma</span> <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i>
+                                </button>
+                                <button onclick="selectAnatomy('Style')" class="btn-part p-2.5 rounded-xl border border-slate-200 hover:border-emerald-500 hover:bg-emerald-50/50 text-xs font-bold transition text-left flex items-center justify-between">
+                                    <span>Style</span> <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i>
+                                </button>
+                                <button onclick="selectAnatomy('Ovary')" class="btn-part p-2.5 rounded-xl border border-slate-200 hover:border-emerald-500 hover:bg-emerald-50/50 text-xs font-bold transition text-left flex items-center justify-between">
+                                    <span>Ovary</span> <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i>
+                                </button>
+                                <button onclick="selectAnatomy('Ovule/Seed')" class="btn-part p-2.5 rounded-xl border border-slate-200 hover:border-emerald-500 hover:bg-emerald-50/50 text-xs font-bold transition text-left flex items-center justify-between">
+                                    <span>Ovule/Seed</span> <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i>
+                                </button>
+                                <button onclick="selectAnatomy('Sepal')" class="btn-part p-2.5 rounded-xl border border-slate-200 hover:border-emerald-500 hover:bg-emerald-50/50 text-xs font-bold transition text-left flex items-center justify-between">
+                                    <span>Sepal</span> <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Study Guide note banner -->
+                        <div class="bg-emerald-50/50 border border-emerald-100 rounded-2xl p-4 flex gap-3 items-start">
+                            <i data-lucide="info" class="w-5 h-5 text-emerald-600 shrink-0 mt-0.5 animate-bounce"></i>
+                            <div class="text-xs text-slate-600 leading-relaxed">
+                                <span class="font-bold text-slate-900">Reproduction Rule:</span> The stamen is the male reproductive part that produces pollen, while the carpel is the female part containing the stigma, style, and ovary. After fertilization, seeds are formed.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 2: POLLINATION & FERTILIZATION SIMULATOR -->
+            <section id="pollination-lab" class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 shadow-sm">
+                <div class="flex flex-col lg:flex-row gap-8 items-center">
+                    <div class="w-full lg:w-1/2 space-y-4">
+                        <span class="bg-amber-100 text-amber-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Animation Sandbox</span>
+                        <h2 class="serif-title text-2xl md:text-3xl font-bold text-slate-900 leading-tight">Interactive Pollination & Tube Growth Simulator</h2>
+                        <p class="text-slate-600 text-sm md:text-base leading-relaxed">
+                            Watch pollination happen in real time! Pollination is the critical physical transfer of grains from the male anther to the sticky female stigma. Following this landing, a microscopic tube grows downward into the ovary to complete fertilisation.
                         </p>
+                        
+                        <!-- Control Panel -->
+                        <div class="bg-amber-50/30 border border-amber-200/60 rounded-2xl p-4 space-y-3">
+                            <h4 class="font-bold text-xs text-amber-900 uppercase tracking-wider">Choose a Pollination Agent</h4>
+                            <div class="flex flex-wrap gap-2">
+                                <button onclick="triggerPollination('bee')" class="bg-amber-500 hover:bg-amber-600 text-white font-bold px-4 py-2.5 rounded-xl shadow-md text-xs flex items-center gap-1.5 transition">
+                                    🐝 Deploy Bee Vector
+                                </button>
+                                <button onclick="triggerPollination('wind')" class="bg-sky-500 hover:bg-sky-600 text-white font-bold px-4 py-2.5 rounded-xl shadow-md text-xs flex items-center gap-1.5 transition">
+                                    🌬️ Trigger Wind Gust
+                                </button>
+                                <button onclick="resetPollination()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold px-4 py-2.5 rounded-xl text-xs flex items-center gap-1.5 transition">
+                                    <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i> Reset Board
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Live Logger -->
+                        <div id="sim-status" class="bg-slate-900 text-slate-100 rounded-2xl p-4 font-mono text-xs space-y-1 h-32 overflow-y-auto">
+                            <p class="text-slate-400">[SYSTEM] Lab initialized. Awaiting vector input...</p>
+                        </div>
+                    </div>
+
+                    <!-- Sandbox Viewport -->
+                    <div class="w-full lg:w-1/2 bg-sky-50 rounded-2xl border-2 border-dashed border-sky-150 h-[360px] overflow-hidden relative shadow-inner">
+                        <!-- Cloud background elements -->
+                        <div class="absolute top-4 left-6 opacity-20"><i data-lucide="cloud" class="w-12 h-12 text-slate-400 animate-pulse"></i></div>
+                        <div class="absolute top-12 right-12 opacity-25"><i data-lucide="cloud" class="w-16 h-16 text-slate-400"></i></div>
+                        
+                        <!-- Mini Interactive Flower in Simulator -->
+                        <div class="absolute bottom-0 inset-x-0 flex justify-center">
+                            <svg viewBox="0 0 200 200" class="w-48 h-48">
+                                <rect x="95" y="100" width="10" height="100" fill="#15803d" />
+                                <ellipse cx="100" cy="110" rx="20" ry="25" fill="#86efac" />
+                                <path id="sim-pollen-tube" d="M 100,60" fill="none" stroke="#e11d48" stroke-width="4" stroke-dasharray="1000" stroke-dashoffset="1000" class="transition-all duration-[2000ms] ease-out" />
+                                <path d="M 100,50 C 95,40 105,40 100,60" fill="#22c55e" stroke="#15803d" />
+                                <ellipse cx="80" cy="80" rx="8" ry="10" fill="#eab308" id="sim-anther" />
+                                <path d="M 97,110 Q 80,100 80,85" fill="none" stroke="#ca8a04" />
+                            </svg>
+                        </div>
+
+                        <!-- Dynamic Animated Bee Sprite -->
+                        <div id="bee-sprite" class="absolute w-10 h-10 transition-all duration-[1200ms] ease-in-out pointer-events-none" style="top: 20px; left: -50px; transform: scaleX(1);">
+                            <span class="text-3xl">🐝</span>
+                        </div>
+
+                        <!-- Wind/Pollen Particles Container -->
+                        <div id="pollen-container" class="absolute inset-0 pointer-events-none"></div>
+
+                        <!-- Fertilizer Bloom Notification overlay -->
+                        <div id="fertilize-success" class="absolute inset-0 bg-emerald-950/80 flex flex-col items-center justify-center text-white p-4 text-center opacity-0 pointer-events-none transition-opacity duration-300">
+                            <i data-lucide="sparkles" class="w-12 h-12 text-yellow-400 animate-spin mb-2"></i>
+                            <h4 class="font-bold text-lg">Fertilisation Complete!</h4>
+                            <p class="text-xs text-emerald-200 mt-1 max-w-[280px]">The pollen nucleus has successfully joined with the egg cell inside the ovule, initiating seed growth.</p>
+                            <button onclick="resetPollination()" class="mt-4 bg-emerald-500 text-white font-semibold px-4 py-1.5 rounded-full text-xs hover:bg-emerald-400 transition">Run Another Simulation</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 3: METABOLISM LAB (PHOTOSYNTHESIS & RESPIRATION) -->
+            <section id="energy-lab" class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 shadow-sm">
+                <span class="bg-teal-100 text-teal-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Metabolism Sandbox</span>
+                <h2 class="serif-title text-2xl md:text-3xl font-bold text-slate-900 mt-3 mb-6">Interactive Cellular Energetics & Respiration Lab</h2>
+
+                <!-- Main Grid -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Left: Blood Stream Simulation -->
+                    <div class="bg-slate-50 rounded-2xl border border-slate-100 p-5 flex flex-col justify-between">
+                        <div>
+                            <span class="bg-red-100 text-red-800 text-xs font-bold px-2.5 py-0.5 rounded">Topic 4 Syllabus Context</span>
+                            <h3 class="font-bold text-lg text-slate-800 mt-2">Blood Stream & Oxygen Transport</h3>
+                            <p class="text-xs text-slate-500 mt-1">
+                                Red blood cells transport oxygen around the body using hemoglobin. Click on the cell units to trigger gas exchange between Oxygen (O₂) and Carbon Dioxide (CO₂).
+                            </p>
+                        </div>
+
+                        <!-- Interactive Blood Vessel Container -->
+                        <div class="bg-red-950 rounded-2xl p-4 my-4 relative h-48 overflow-hidden border-t-4 border-b-4 border-red-900 shadow-inner flex items-center">
+                            <!-- Cells flowing from left to right -->
+                            <div class="absolute left-4 top-2 text-white/30 text-[10px] font-mono font-bold tracking-widest uppercase">Capillary Flow</div>
+                            <div id="cells-lane" class="w-full flex justify-around relative">
+                                <!-- Red blood cell sprite 1 -->
+                                <div onclick="toggleCellOxygen(this)" class="cursor-pointer group relative flex flex-col items-center select-none animate-bounce" style="animation-duration: 3s;">
+                                    <div class="w-14 h-14 bg-red-600 rounded-full border-4 border-red-700 shadow-md flex items-center justify-center transition hover:scale-105 active:scale-95">
+                                        <div class="w-8 h-8 bg-red-800 rounded-full flex items-center justify-center text-[8px] font-bold text-white text-center">RBC</div>
+                                    </div>
+                                    <span class="gas-tag absolute -top-4 bg-emerald-500 text-white text-[9px] px-1.5 py-0.5 rounded font-bold">Oxygen (O₂)</span>
+                                </div>
+
+                                <!-- Red blood cell sprite 2 -->
+                                <div onclick="toggleCellOxygen(this)" class="cursor-pointer group relative flex flex-col items-center select-none animate-bounce" style="animation-duration: 4.2s;">
+                                    <div class="w-14 h-14 bg-red-600 rounded-full border-4 border-red-700 shadow-md flex items-center justify-center transition hover:scale-105 active:scale-95">
+                                        <div class="w-8 h-8 bg-red-800 rounded-full flex items-center justify-center text-[8px] font-bold text-white text-center">RBC</div>
+                                    </div>
+                                    <span class="gas-tag absolute -top-4 bg-sky-500 text-white text-[9px] px-1.5 py-0.5 rounded font-bold">Carbon Dioxide (CO₂)</span>
+                                </div>
+
+                                <!-- Red blood cell sprite 3 -->
+                                <div onclick="toggleCellOxygen(this)" class="cursor-pointer group relative flex flex-col items-center select-none animate-bounce" style="animation-duration: 3.5s;">
+                                    <div class="w-14 h-14 bg-red-600 rounded-full border-4 border-red-700 shadow-md flex items-center justify-center transition hover:scale-105 active:scale-95">
+                                        <div class="w-8 h-8 bg-red-800 rounded-full flex items-center justify-center text-[8px] font-bold text-white text-center">RBC</div>
+                                    </div>
+                                    <span class="gas-tag absolute -top-4 bg-emerald-500 text-white text-[9px] px-1.5 py-0.5 rounded font-bold">Oxygen (O₂)</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p class="text-[11px] text-slate-500 leading-relaxed text-center italic">
+                            💡 Tap on the Red Blood Cells above to swap the loaded gas between Oxygen (O₂) and Carbon Dioxide (CO₂) waste!
+                        </p>
+                    </div>
+
+                    <!-- Right: Drag & Drop Equation Builder -->
+                    <div class="bg-slate-50 rounded-2xl border border-slate-100 p-5 flex flex-col justify-between">
+                        <div>
+                            <span class="bg-teal-100 text-teal-800 text-xs font-bold px-2.5 py-0.5 rounded">Topic 3 Pathway Lab</span>
+                            <h3 class="font-bold text-lg text-slate-800 mt-2">Active Biochemical Equation Laboratory</h3>
+                            <p class="text-xs text-slate-500 mt-1">
+                                Complete the photosynthetic equation below by selecting correct outputs:
+                            </p>
+                        </div>
+
+                        <!-- Equation sandbox workspace -->
+                        <div class="my-6 bg-white border border-slate-200 rounded-2xl p-4 text-center">
+                            <span class="text-xs text-slate-400 font-bold uppercase block mb-3">Reactants</span>
+                            <div class="flex flex-wrap items-center justify-center gap-2 text-sm">
+                                <span class="bg-blue-100 text-blue-800 px-3 py-1.5 rounded-lg font-bold">Carbon Dioxide</span>
+                                <span class="font-bold text-slate-400">+</span>
+                                <span class="bg-blue-100 text-blue-800 px-3 py-1.5 rounded-lg font-bold">Water</span>
+                                <span class="text-xs block text-slate-400 font-mono mt-1 mx-2">☀️ Sunlight</span>
+                                <span class="font-bold text-slate-400">➔</span>
+                            </div>
+                            
+                            <span class="text-xs text-slate-400 font-bold uppercase block mt-4 mb-3">Expected Chemical Outputs</span>
+                            <!-- Dropdown selections for products -->
+                            <div class="flex items-center justify-center gap-2">
+                                <select id="eq-product-1" onchange="checkChemicalEquation()" class="bg-slate-50 border border-slate-200 rounded-xl px-2 py-2 text-xs font-bold focus:outline-none focus:border-emerald-500">
+                                    <option value="">-- Choose Product 1 --</option>
+                                    <option value="water">Water</option>
+                                    <option value="glucose">Glucose (Sugar)</option>
+                                    <option value="carbon">Carbon Solid</option>
+                                </select>
+                                <span class="font-bold text-slate-400">+</span>
+                                <select id="eq-product-2" onchange="checkChemicalEquation()" class="bg-slate-50 border border-slate-200 rounded-xl px-2 py-2 text-xs font-bold focus:outline-none focus:border-emerald-500">
+                                    <option value="">-- Choose Product 2 --</option>
+                                    <option value="oxygen">Oxygen (Gas)</option>
+                                    <option value="hydrogen">Hydrogen (Gas)</option>
+                                    <option value="lactic">Lactic Acid</option>
+                                </select>
+                            </div>
+
+                            <div id="eq-result" class="mt-4 text-xs font-semibold py-1.5 rounded-xl hidden"></div>
+                        </div>
+
+                        <div class="bg-white border border-slate-200 rounded-2xl p-4 flex gap-3">
+                            <i data-lucide="help-circle" class="w-5 h-5 text-teal-600 shrink-0"></i>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                <span class="font-bold">Summary Review:</span> Photosynthesis creates glucose and oxygen in chloroplast units. Respiration breaks food in living cells to harvest essential physical energy.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ASSESSMENT ENGINE & EXAM HUB (TAB 2) -->
+        <div id="tab-quiz" class="hidden space-y-8">
+            
+            <div class="bg-white border border-slate-200 rounded-3xl p-6 md:p-8 shadow-sm">
+                <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-slate-200 pb-4 mb-6 gap-4">
+                    <div>
+                        <span class="bg-emerald-100 text-emerald-800 text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wider">Evaluation Hub</span>
+                        <h2 class="serif-title text-2xl md:text-3xl font-bold text-slate-900 mt-2">Interactive Examination Hub</h2>
+                        <p class="text-xs text-slate-500 mt-1">Complete all 21 marks of worksheet questions extracted from PLANT REPRODUCTION.pdf.</p>
+                    </div>
+                    <!-- Diagnostic metrics display -->
+                    <div class="bg-slate-100 p-3 rounded-2xl border border-slate-200 text-center md:text-right min-w-[150px]">
+                        <span class="text-[10px] text-slate-400 uppercase tracking-wider font-bold">Total Mark Matrix</span>
+                        <div class="text-2xl font-black text-emerald-600" id="live-final-score">0 / 21</div>
                     </div>
                 </div>
 
-                <!-- Project 2: E-commerce -->
-                <div class="interactive-element bg-[#1a1a1a] rounded-lg overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1551947733-4a623729312b?q=80&w=2787&auto=format&fit=crop" 
-                         alt="Luxury e-commerce project mockup" 
-                         class="w-full h-64 object-cover"
-                         onerror="this.onerror=null;this.src='https://placehold.co/800x600/1a1a1a/D4AF37?text=Chronos+Atelier';">
-                    <div class="p-8">
-                        <h3 class="text-2xl font-serif font-bold text-white mb-2">Chronos Atelier</h3>
-                        <p class="text-gold font-medium mb-4">Mobile-First Design, Personalization Engine</p>
-                        <p class="text-gray-400 font-light leading-relaxed">
-                            A highly-curated e-commerce platform for a bespoke watchmaker. The design focuses on heritage storytelling and a personalization engine that offers a 'digital concierge' shopping experience.
+                <form id="syllabus-form" onsubmit="gradeAllAssessmentSheets(event)" class="space-y-8">
+                    
+                    <!-- Q26 Labeling Challenge (4 Marks) -->
+                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-200/60 relative">
+                        <span class="absolute right-4 top-4 bg-emerald-500 text-white text-[10px] font-bold px-2 py-1 rounded-full">4 Marks</span>
+                        <div class="flex gap-2 items-center text-slate-900 font-bold text-lg mb-3">
+                            <span class="bg-slate-200 text-slate-800 w-7 h-7 rounded-full flex items-center justify-center text-xs">26</span>
+                            <h3>Label the Plant Reproductive System Components</h3>
+                        </div>
+                        <p class="text-xs text-slate-600 mb-4 leading-relaxed">
+                            Using the terms provided, match each description to identify corresponding flower parts:
+                            <span class="inline-flex gap-1.5 flex-wrap ml-1 font-mono text-[10px] bg-slate-200/50 px-2 py-1 rounded text-slate-700">anther, sepal, ovary, pollen, ovule/seed, style, filament, stigma</span>
                         </p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between p-3 bg-white border border-slate-200 rounded-xl">
+                                    <span class="text-xs font-bold text-slate-700">1. Yellow pollen box on stamen head</span>
+                                    <select id="lbl-1" required class="bg-slate-50 border border-slate-200 rounded-lg p-2 text-xs font-bold focus:outline-none focus:border-emerald-500">
+                                        <option value="">Select term...</option>
+                                        <option value="anther">anther</option>
+                                        <option value="sepal">sepal</option>
+                                        <option value="ovary">ovary</option>
+                                        <option value="pollen">pollen</option>
+                                        <option value="ovule/seed">ovule/seed</option>
+                                        <option value="style">style</option>
+                                        <option value="filament">filament</option>
+                                        <option value="stigma">stigma</option>
+                                    </select>
+                                </div>
+                                <div class="flex items-center justify-between p-3 bg-white border border-slate-200 rounded-xl">
+                                    <span class="text-xs font-bold text-slate-700">2. Leaf structure protecting the bud base</span>
+                                    <select id="lbl-2" required class="bg-slate-50 border border-slate-200 rounded-lg p-2 text-xs font-bold focus:outline-none focus:border-emerald-500">
+                                        <option value="">Select term...</option>
+                                        <option value="anther">anther</option>
+                                        <option value="sepal">sepal</option>
+                                        <option value="ovary">ovary</option>
+                                        <option value="pollen">pollen</option>
+                                        <option value="ovule/seed">ovule/seed</option>
+                                        <option value="style">style</option>
+                                        <option value="filament">filament</option>
+                                        <option value="stigma">stigma</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between p-3 bg-white border border-slate-200 rounded-xl">
+                                    <span class="text-xs font-bold text-slate-700">3. Swollen cavity hosting ovules</span>
+                                    <select id="lbl-3" required class="bg-slate-50 border border-slate-200 rounded-lg p-2 text-xs font-bold focus:outline-none focus:border-emerald-500">
+                                        <option value="">Select term...</option>
+                                        <option value="anther">anther</option>
+                                        <option value="sepal">sepal</option>
+                                        <option value="ovary">ovary</option>
+                                        <option value="pollen">pollen</option>
+                                        <option value="ovule/seed">ovule/seed</option>
+                                        <option value="style">style</option>
+                                        <option value="filament">filament</option>
+                                        <option value="stigma">stigma</option>
+                                    </select>
+                                </div>
+                                <div class="flex items-center justify-between p-3 bg-white border border-slate-200 rounded-xl">
+                                    <span class="text-xs font-bold text-slate-700">4. Sticky top receiving pollen grains</span>
+                                    <select id="lbl-4" required class="bg-slate-50 border border-slate-200 rounded-lg p-2 text-xs font-bold focus:outline-none focus:border-emerald-500">
+                                        <option value="">Select term...</option>
+                                        <option value="anther">anther</option>
+                                        <option value="sepal">sepal</option>
+                                        <option value="ovary">ovary</option>
+                                        <option value="pollen">pollen</option>
+                                        <option value="ovule/seed">ovule/seed</option>
+                                        <option value="style">style</option>
+                                        <option value="filament">filament</option>
+                                        <option value="stigma">stigma</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="grade-26" class="mt-3 text-xs font-bold hidden"></div>
                     </div>
-                </div>
+
+                    <!-- Q27 Pollination Written (2 Marks) -->
+                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-200/60 relative">
+                        <span class="absolute right-4 top-4 bg-emerald-500 text-white text-[10px] font-bold px-2 py-1 rounded-full">2 Marks</span>
+                        <div class="flex gap-2 items-center text-slate-900 font-bold text-lg mb-3">
+                            <span class="bg-slate-200 text-slate-800 w-7 h-7 rounded-full flex items-center justify-center text-xs">27</span>
+                            <h3>Explain what pollination is</h3>
+                        </div>
+                        <textarea id="ans-27" required placeholder="Describe the physical transfer process..." class="w-full bg-white border border-slate-200 rounded-xl p-3 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all h-24"></textarea>
+                        
+                        <div id="grade-27" class="mt-3 text-xs font-bold hidden"></div>
+                        <div id="model-27" class="mt-2 bg-amber-50 border border-amber-200/60 p-3 rounded-xl hidden">
+                            <span class="text-[10px] text-amber-800 font-extrabold uppercase block tracking-wider">Model Teacher Answer</span>
+                            <p class="text-xs text-amber-900 mt-1 leading-relaxed">Pollination is the transfer of pollen from the male anther to the female stigma, facilitated by wind, water, or pollinators like insects and birds.</p>
+                        </div>
+                    </div>
+
+                    <!-- Q28 True/False (4 Marks) -->
+                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-200/60 relative">
+                        <span class="absolute right-4 top-4 bg-emerald-500 text-white text-[10px] font-bold px-2 py-1 rounded-full">4 Marks</span>
+                        <div class="flex gap-2 items-center text-slate-900 font-bold text-lg mb-3">
+                            <span class="bg-slate-200 text-slate-800 w-7 h-7 rounded-full flex items-center justify-center text-xs">28</span>
+                            <h3>Evaluate the biological statements (True or False)</h3>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <!-- Statement A -->
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between bg-white border border-slate-200 p-3 rounded-xl gap-2">
+                                <span class="text-xs font-bold text-slate-700">a) Humans depend on pollinators.</span>
+                                <div class="flex gap-2">
+                                    <button type="button" id="tf-a-true" onclick="selectTF('a', 'true')" class="tf-btn px-4 py-1.5 rounded-lg border border-slate-200 text-xs font-bold bg-slate-50 hover:bg-slate-100 transition-all">True</button>
+                                    <button type="button" id="tf-a-false" onclick="selectTF('a', 'false')" class="tf-btn px-4 py-1.5 rounded-lg border border-slate-200 text-xs font-bold bg-slate-50 hover:bg-slate-100 transition-all">False</button>
+                                </div>
+                            </div>
+                            <!-- Statement B -->
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between bg-white border border-slate-200 p-3 rounded-xl gap-2">
+                                <span class="text-xs font-bold text-slate-700">b) Pollinators are only insects.</span>
+                                <div class="flex gap-2">
+                                    <button type="button" id="tf-b-true" onclick="selectTF('b', 'true')" class="tf-btn px-4 py-1.5 rounded-lg border border-slate-200 text-xs font-bold bg-slate-50 hover:bg-slate-100 transition-all">True</button>
+                                    <button type="button" id="tf-b-false" onclick="selectTF('b', 'false')" class="tf-btn px-4 py-1.5 rounded-lg border border-slate-200 text-xs font-bold bg-slate-50 hover:bg-slate-100 transition-all">False</button>
+                                </div>
+                            </div>
+                            <!-- Statement C -->
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between bg-white border border-slate-200 p-3 rounded-xl gap-2">
+                                <span class="text-xs font-bold text-slate-700">c) Climate change is increasing pollinator numbers.</span>
+                                <div class="flex gap-2">
+                                    <button type="button" id="tf-c-true" onclick="selectTF('c', 'true')" class="tf-btn px-4 py-1.5 rounded-lg border border-slate-200 text-xs font-bold bg-slate-50 hover:bg-slate-100 transition-all">True</button>
+                                    <button type="button" id="tf-c-false" onclick="selectTF('c', 'false')" class="tf-btn px-4 py-1.5 rounded-lg border border-slate-200 text-xs font-bold bg-slate-50 hover:bg-slate-100 transition-all">False</button>
+                                </div>
+                            </div>
+                            <!-- Statement D -->
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between bg-white border border-slate-200 p-3 rounded-xl gap-2">
+                                <span class="text-xs font-bold text-slate-700">d) Pollen must land on the ovary for pollination.</span>
+                                <div class="flex gap-2">
+                                    <button type="button" id="tf-d-true" onclick="selectTF('d', 'true')" class="tf-btn px-4 py-1.5 rounded-lg border border-slate-200 text-xs font-bold bg-slate-50 hover:bg-slate-100 transition-all">True</button>
+                                    <button type="button" id="tf-d-false" onclick="selectTF('d', 'false')" class="tf-btn px-4 py-1.5 rounded-lg border border-slate-200 text-xs font-bold bg-slate-50 hover:bg-slate-100 transition-all">False</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="grade-28" class="mt-3 text-xs font-bold hidden"></div>
+                    </div>
+
+                    <!-- Q29 Dispersal Written (2 Marks) -->
+                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-200/60 relative">
+                        <span class="absolute right-4 top-4 bg-emerald-500 text-white text-[10px] font-bold px-2 py-1 rounded-full">2 Marks</span>
+                        <div class="flex gap-2 items-center text-slate-900 font-bold text-lg mb-3">
+                            <span class="bg-slate-200 text-slate-800 w-7 h-7 rounded-full flex items-center justify-center text-xs">29</span>
+                            <h3>Explain why seed dispersal is important</h3>
+                        </div>
+                        <textarea id="ans-29" required placeholder="Describe competition, nutrients, and resource benefits..." class="w-full bg-white border border-slate-200 rounded-xl p-3 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all h-24"></textarea>
+                        
+                        <div id="grade-29" class="mt-3 text-xs font-bold hidden"></div>
+                        <div id="model-29" class="mt-2 bg-amber-50 border border-amber-200/60 p-3 rounded-xl hidden">
+                            <span class="text-[10px] text-amber-800 font-extrabold uppercase block tracking-wider">Model Teacher Answer</span>
+                            <p class="text-xs text-amber-900 mt-1 leading-relaxed">Seed dispersal is important to help plants grow in new areas and reduce competition with the parent plant for resources like light, water, and soil nutrients.</p>
+                        </div>
+                    </div>
+
+                    <!-- Q30 Chlorophyll Location (1 Mark) -->
+                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-200/60 relative">
+                        <span class="absolute right-4 top-4 bg-emerald-500 text-white text-[10px] font-bold px-2 py-1 rounded-full">1 Mark</span>
+                        <div class="flex gap-2 items-center text-slate-900 font-bold text-lg mb-3">
+                            <span class="bg-slate-200 text-slate-800 w-7 h-7 rounded-full flex items-center justify-center text-xs">30</span>
+                            <h3>Which part of the plant cell contains chlorophyll?</h3>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <label class="mcq-label flex items-center gap-3 p-3 bg-white border border-slate-200 rounded-xl cursor-pointer hover:bg-slate-100 transition">
+                                <input type="radio" name="ans-30" value="A" required class="accent-emerald-600">
+                                <span class="text-xs font-semibold text-slate-700">A. Nucleus</span>
+                            </label>
+                            <label class="mcq-label flex items-center gap-3 p-3 bg-white border border-slate-200 rounded-xl cursor-pointer hover:bg-slate-100 transition">
+                                <input type="radio" name="ans-30" value="B" class="accent-emerald-600">
+                                <span class="text-xs font-semibold text-slate-700">B. Cytoplasm</span>
+                            </label>
+                            <label class="mcq-label flex items-center gap-3 p-3 bg-white border border-slate-200 rounded-xl cursor-pointer hover:bg-slate-100 transition">
+                                <input type="radio" name="ans-30" value="C" class="accent-emerald-600">
+                                <span class="text-xs font-semibold text-slate-700">C. Chloroplast</span>
+                            </label>
+                            <label class="mcq-label flex items-center gap-3 p-3 bg-white border border-slate-200 rounded-xl cursor-pointer hover:bg-slate-100 transition">
+                                <input type="radio" name="ans-30" value="D" class="accent-emerald-600">
+                                <span class="text-xs font-semibold text-slate-700">D. Cell membrane</span>
+                            </label>
+                        </div>
+                        <div id="grade-30" class="mt-3 text-xs font-bold hidden"></div>
+                    </div>
+
+                    <!-- Q31 Photosynthesis Output (1 Mark) -->
+                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-200/60 relative">
+                        <span class="absolute right-4 top-4 bg-emerald-500 text-white text-[10px] font-bold px-2 py-1 rounded-full">1 Mark</span>
+                        <div class="flex gap-2 items-center text-slate-900 font-bold text-lg mb-3">
+                            <span class="bg-slate-200 text-slate-800 w-7 h-7 rounded-full flex items-center justify-center text-xs">31</span>
+                            <h3>Which one of these do plants make during photosynthesis?</h3>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <label class="mcq-label flex items-center gap-3 p-3 bg-white border border-slate-200 rounded-xl cursor-pointer hover:bg-slate-100 transition">
+                                <input type="radio" name="ans-31" value="A" required class="accent-emerald-600">
+                                <span class="text-xs font-semibold text-slate-700">A. Water</span>
+                            </label>
+                            <label class="mcq-label flex items-center gap-3 p-3 bg-white border border-slate-200 rounded-xl cursor-pointer hover:bg-slate-100 transition">
+                                <input type="radio" name="ans-31" value="B" class="accent-emerald-600">
+                                <span class="text-xs font-semibold text-slate-700">B. Oxygen</span>
+                            </label>
+                            <label class="mcq-label flex items-center gap-3 p-3 bg-white border border-slate-200 rounded-xl cursor-pointer hover:bg-slate-100 transition">
+                                <input type="radio" name="ans-31" value="C" class="accent-emerald-600">
+                                <span class="text-xs font-semibold text-slate-700">C. Carbon</span>
+                            </label>
+                            <label class="mcq-label flex items-center gap-3 p-3 bg-white border border-slate-200 rounded-xl cursor-pointer hover:bg-slate-100 transition">
+                                <input type="radio" name="ans-31" value="D" class="accent-emerald-600">
+                                <span class="text-xs font-semibold text-slate-700">D. Hydrogen</span>
+                            </label>
+                        </div>
+                        <div id="grade-31" class="mt-3 text-xs font-bold hidden"></div>
+                    </div>
+
+                    <!-- Q32 Dispersal Challenge (4 Marks) -->
+                    <div class="p-6 bg-amber-50/50 rounded-2xl border-2 border-dashed border-amber-200 relative">
+                        <span class="absolute right-4 top-4 bg-amber-500 text-white text-[10px] font-bold px-2 py-1 rounded-full">Challenge: 4 Marks</span>
+                        <div class="flex gap-2 items-center text-slate-900 font-bold text-lg mb-3">
+                            <span class="bg-amber-100 text-amber-800 w-7 h-7 rounded-full flex items-center justify-center text-xs">32</span>
+                            <h3>Discuss two ways seeds are dispersed</h3>
+                        </div>
+                        <textarea id="ans-32" required placeholder="Outline two modes e.g., Wind, Water, Animal, or Explosions..." class="w-full bg-white border border-slate-200 rounded-xl p-3 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all h-28"></textarea>
+                        
+                        <div id="grade-32" class="mt-3 text-xs font-bold hidden"></div>
+                        <div id="model-32" class="mt-2 bg-amber-50 border border-amber-200/60 p-3 rounded-xl hidden">
+                            <span class="text-[10px] text-amber-800 font-extrabold uppercase block tracking-wider">Model Teacher Answer</span>
+                            <p class="text-xs text-amber-900 mt-1 leading-relaxed">Seeds are dispersed through mechanisms such as: (1) Wind (light seeds float on air currents), (2) Water (seeds float to new banks), (3) Animals (clinging to fur or being eaten and excreted), and (4) Explosions (pods burst open throwing seeds).</p>
+                        </div>
+                    </div>
+
+                    <!-- Q33 Ecological Cascade Challenge (2 Marks) -->
+                    <div class="p-6 bg-amber-50/50 rounded-2xl border-2 border-dashed border-amber-200 relative">
+                        <span class="absolute right-4 top-4 bg-amber-500 text-white text-[10px] font-bold px-2 py-1 rounded-full">Challenge: 2 Marks</span>
+                        <div class="flex gap-2 items-center text-slate-900 font-bold text-lg mb-3">
+                            <span class="bg-amber-100 text-amber-800 w-7 h-7 rounded-full flex items-center justify-center text-xs">33</span>
+                            <h3>Explain how fewer insects affect plant reproduction</h3>
+                        </div>
+                        <textarea id="ans-33" required placeholder="Discuss pollination rates and resulting fertilization cycles..." class="w-full bg-white border border-slate-200 rounded-xl p-3 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all h-28"></textarea>
+                        
+                        <div id="grade-33" class="mt-3 text-xs font-bold hidden"></div>
+                        <div id="model-33" class="mt-2 bg-amber-50 border border-amber-200/60 p-3 rounded-xl hidden">
+                            <span class="text-[10px] text-amber-800 font-extrabold uppercase block tracking-wider">Model Teacher Answer</span>
+                            <p class="text-xs text-amber-900 mt-1 leading-relaxed">Fewer insects mean there are less active pollinators to transfer pollen from anthers to stigmas. This decreases fertilization rates and results in fewer seeds being produced.</p>
+                        </div>
+                    </div>
+
+                    <!-- Q34 Respiration Definition (1 Mark) -->
+                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-200/60 relative">
+                        <span class="absolute right-4 top-4 bg-emerald-500 text-white text-[10px] font-bold px-2 py-1 rounded-full">1 Mark</span>
+                        <div class="flex gap-2 items-center text-slate-900 font-bold text-lg mb-3">
+                            <span class="bg-slate-200 text-slate-800 w-7 h-7 rounded-full flex items-center justify-center text-xs">34</span>
+                            <h3>What is respiration?</h3>
+                        </div>
+                        <div class="grid grid-cols-1 gap-3">
+                            <label class="mcq-label flex items-center gap-3 p-3 bg-white border border-slate-200 rounded-xl cursor-pointer hover:bg-slate-100 transition">
+                                <input type="radio" name="ans-34" value="A" required class="accent-emerald-600">
+                                <span class="text-xs font-semibold text-slate-700 font-medium">A. The process of making food in plants</span>
+                            </label>
+                            <label class="mcq-label flex items-center gap-3 p-3 bg-white border border-slate-200 rounded-xl cursor-pointer hover:bg-slate-100 transition">
+                                <input type="radio" name="ans-34" value="B" class="accent-emerald-600">
+                                <span class="text-xs font-semibold text-slate-700 font-medium">B. The process of releasing energy from food in cells</span>
+                            </label>
+                            <label class="mcq-label flex items-center gap-3 p-3 bg-white border border-slate-200 rounded-xl cursor-pointer hover:bg-slate-100 transition">
+                                <input type="radio" name="ans-34" value="C" class="accent-emerald-600">
+                                <span class="text-xs font-semibold text-slate-700 font-medium">C. The movement of blood around the body</span>
+                            </label>
+                            <label class="mcq-label flex items-center gap-3 p-3 bg-white border border-slate-200 rounded-xl cursor-pointer hover:bg-slate-100 transition">
+                                <input type="radio" name="ans-34" value="D" class="accent-emerald-600">
+                                <span class="text-xs font-semibold text-slate-700 font-medium">D. The process of breathing only</span>
+                            </label>
+                        </div>
+                        <div id="grade-34" class="mt-3 text-xs font-bold hidden"></div>
+                    </div>
+
+                    <!-- Grading Trigger Button -->
+                    <div class="flex flex-col sm:flex-row gap-4 justify-between items-center bg-slate-100 p-6 rounded-2xl border border-slate-200">
+                        <div>
+                            <h4 class="font-bold text-slate-800">Ready to grade your worksheet?</h4>
+                            <p class="text-xs text-slate-500 mt-1">Make sure you have answered all required sections before submitting.</p>
+                        </div>
+                        <div class="flex gap-2 w-full sm:w-auto">
+                            <button type="submit" class="w-full sm:w-auto bg-emerald-600 text-white font-bold px-8 py-3 rounded-xl shadow-lg shadow-emerald-700/20 hover:bg-emerald-700 transition">
+                                📊 Submit & Grade Sheet
+                            </button>
+                            <button type="button" onclick="resetAssessmentForm()" class="bg-white border border-slate-200 hover:bg-slate-50 text-slate-600 font-bold px-4 py-3 rounded-xl text-sm transition">
+                                Clear Sheet
+                            </button>
+                        </div>
+                    </div>
+
+                </form>
             </div>
         </div>
-    </section>
+    </main>
 
-    <!-- Contact Section -->
-    <footer id="contact" class="bg-black py-20 fade-in-section">
-        <div class="container mx-auto px-6 text-center">
-            <h2 class="text-4xl font-serif font-bold text-white mb-4">Commission a Masterpiece</h2>
-            <p class="text-gray-400 max-w-xl mx-auto mb-10 font-light">
-                I am currently considering new partnerships with brands that value exceptionalism. If you have a vision that demands a superior digital presence, I invite you to connect.
-            </p>
-            <a href="mailto:contact@julianvance.design" class="inline-block bg-gold text-black px-10 py-4 rounded-full text-lg font-semibold hover:bg-gold-dark transition-all duration-300 transform hover:scale-105 shadow-2xl">contact@julianvance.design</a>
-            <div class="mt-16 flex justify-center space-x-8">
-                 <a href="#" class="text-gray-500 hover:text-gold transition-colors">LinkedIn</a>
-                 <a href="#" class="text-gray-500 hover:text-gold transition-colors">Awwwards</a>
-                 <a href="#" class="text-gray-500 hover:text-gold transition-colors">Behance</a>
+    <!-- Page Footer -->
+    <footer class="bg-slate-900 text-white py-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
+            <div class="flex justify-center items-center space-x-2">
+                <i data-lucide="sprout" class="w-6 h-6 text-emerald-400"></i>
+                <span class="font-extrabold text-lg tracking-tight serif-title text-emerald-400">Plant Systems Classroom Hub</span>
             </div>
-            <p class="mt-16 text-sm text-gray-600">&copy; 2025 Julian Vance. The Apex of Digital Design.</p>
+            <p class="text-xs text-slate-500 max-w-xl mx-auto leading-relaxed">
+                Topic 3 & Topic 4 interactive coursework modules. Self-contained pedagogical platform containing sandbox simulators, anatomy charts, and complete mark-allocated assessment pathways.
+            </p>
+            <div class="text-[10px] text-slate-600">
+                &copy; 2026 Plant Reproduction & Energetics Lab. All rights reserved.
+            </div>
         </div>
     </footer>
 
+    <!-- Interactive JS Core Logic -->
     <script>
-        // JavaScript for scroll-triggered animations
-        document.addEventListener("DOMContentLoaded", () => {
-            const sections = document.querySelectorAll('.fade-in-section');
+        // Tab switching mechanics
+        function switchTab(tabId) {
+            if(tabId === 'learn') {
+                document.getElementById('tab-learn').classList.remove('hidden');
+                document.getElementById('tab-quiz').classList.add('hidden');
+                
+                document.getElementById('nav-learn').classList.add('bg-emerald-50', 'text-emerald-700');
+                document.getElementById('nav-learn').classList.remove('text-slate-600', 'hover:bg-slate-100');
+                
+                document.getElementById('nav-quiz').classList.remove('bg-emerald-50', 'text-emerald-700');
+                document.getElementById('nav-quiz').classList.add('text-slate-600', 'hover:bg-slate-100');
+            } else {
+                document.getElementById('tab-learn').classList.add('hidden');
+                document.getElementById('tab-quiz').classList.remove('hidden');
+                
+                document.getElementById('nav-quiz').classList.add('bg-emerald-50', 'text-emerald-700');
+                document.getElementById('nav-quiz').classList.remove('text-slate-600', 'hover:bg-slate-100');
+                
+                document.getElementById('nav-learn').classList.remove('bg-emerald-50', 'text-emerald-700');
+                document.getElementById('nav-learn').classList.add('text-slate-600', 'hover:bg-slate-100');
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
 
-            const observer = new IntersectionObserver(entries => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
-                        // Optional: unobserve after it's visible so it doesn't re-animate
-                        // observer.unobserve(entry.target);
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Section 1: Anatomy Database & Selector
+        const anatomyDatabase = {
+            'Anther': {
+                title: 'The Anther (Male Organ Head)',
+                gender: 'STAMEN (MALE)',
+                genderColor: 'bg-yellow-100 text-yellow-800',
+                desc: 'The anther is the male reproductive part of the flower that produces pollen grains containing sperm cells.'
+            },
+            'Filament': {
+                title: 'The Filament (Male Supporting Stalk)',
+                gender: 'STAMEN (MALE)',
+                genderColor: 'bg-yellow-100 text-yellow-800',
+                desc: 'A thin, stalk-like structure that supports the anther, raising it up to help pollen spread easily.'
+            },
+            'Pollen': {
+                title: 'Pollen (Reproduction Grains)',
+                gender: 'MALE SPORE CELL',
+                genderColor: 'bg-yellow-100 text-yellow-800',
+                desc: 'Powdery grains containing the male gametes. These must be carried to a female stigma for fertilization.'
+            },
+            'Stigma': {
+                title: 'The Stigma (Sticky Landing Site)',
+                gender: 'CARPEL (FEMALE)',
+                genderColor: 'bg-emerald-100 text-emerald-800',
+                desc: 'The sticky top surface of the female carpel designed specifically to catch and hold incoming pollen grains.'
+            },
+            'Style': {
+                title: 'The Style (Connecting Tube)',
+                gender: 'CARPEL (FEMALE)',
+                genderColor: 'bg-emerald-100 text-emerald-800',
+                desc: 'The long, hollow column connecting the stigma to the ovary. Once pollen lands on the stigma, it forms a tube that grows down this style.'
+            },
+            'Ovary': {
+                title: 'The Ovary (Internal Chamber)',
+                gender: 'CARPEL (FEMALE)',
+                genderColor: 'bg-emerald-100 text-emerald-800',
+                desc: 'The swollen base of the carpel containing the ovules. After fertilization, this ovary matures into a protective fruit.'
+            },
+            'Ovule/Seed': {
+                title: 'The Ovule (Future Seed)',
+                gender: 'FEMALE EGG CHAMBER',
+                genderColor: 'bg-emerald-100 text-emerald-800',
+                desc: 'The internal egg cells housed within the ovary. Once fertilized by a pollen nucleus, they develop into growing seeds.'
+            },
+            'Sepal': {
+                title: 'The Sepal (Protective Shield)',
+                gender: 'PROTECTIVE FLOWER SHEATH',
+                genderColor: 'bg-slate-100 text-slate-800',
+                desc: 'Leaf-like structures enclosing the base of the flower. They protect the delicate petals and organs when the flower is a closed bud.'
+            },
+            'Petals': {
+                title: 'The Petals (Visual Lure)',
+                gender: 'ATTRACTIVE ACCESSORY',
+                genderColor: 'bg-rose-100 text-rose-800',
+                desc: 'Vibrantly colored leaf structures designed specifically to attract insect and bird pollinators to the floral center.'
+            }
+        };
+
+        function selectAnatomy(partKey) {
+            const data = anatomyDatabase[partKey];
+            if (!data) return;
+
+            document.getElementById('anatomy-title').innerText = data.title;
+            
+            const genderBadge = document.getElementById('anatomy-gender');
+            genderBadge.className = `text-xs font-bold px-2.5 py-1 rounded-md ${data.genderColor}`;
+            genderBadge.innerText = data.gender;
+            genderBadge.classList.remove('hidden');
+
+            document.getElementById('anatomy-desc').innerText = data.desc;
+
+            // Highlight chosen button
+            document.querySelectorAll('.btn-part').forEach(btn => {
+                if(btn.innerText.includes(partKey)) {
+                    btn.classList.add('bg-emerald-500', 'text-white', 'border-emerald-600');
+                    btn.classList.remove('hover:bg-emerald-50/50');
+                } else {
+                    btn.classList.remove('bg-emerald-500', 'text-white', 'border-emerald-600');
+                    btn.classList.add('hover:bg-emerald-50/50');
+                }
+            });
+        }
+
+        // Section 2: Pollination Simulator Logic
+        function logSim(message, colorClass = "text-slate-300") {
+            const statusBox = document.getElementById('sim-status');
+            statusBox.innerHTML += `<p class="${colorClass}">${message}</p>`;
+            statusBox.scrollTop = statusBox.scrollHeight;
+        }
+
+        function triggerPollination(type) {
+            resetPollination();
+            const bee = document.getElementById('bee-sprite');
+            const pollenContainer = document.getElementById('pollen-container');
+            const tube = document.getElementById('sim-pollen-tube');
+            
+            if (type === 'bee') {
+                logSim("[SYSTEM] Deploying Apis mellifera (Honeybee) vector...", "text-yellow-400");
+                
+                // Flight to Anther
+                setTimeout(() => {
+                    bee.style.left = "60px";
+                    bee.style.top = "60px";
+                    logSim("🐝 Bee has arrived at the pollen-heavy anther...");
+                }, 100);
+
+                // Load Pollen
+                setTimeout(() => {
+                    logSim("🐝 Bee gathers nectar, brushing pollen grains onto its fuzzy legs!", "text-yellow-300");
+                    pollenContainer.innerHTML = '<div id="loaded-pollen" class="absolute w-2 h-2 bg-yellow-400 rounded-full" style="top: 75px; left: 80px;"></div>';
+                }, 1500);
+
+                // Fly to Stigma
+                setTimeout(() => {
+                    bee.style.left = "110px";
+                    bee.style.top = "20px";
+                    const loadedPollen = document.getElementById('loaded-pollen');
+                    if(loadedPollen) {
+                        loadedPollen.style.left = "130px";
+                        loadedPollen.style.top = "35px";
+                        loadedPollen.style.transition = "all 1200ms ease-in-out";
                     }
-                });
-            }, {
-                rootMargin: '0px',
-                threshold: 0.1
+                    logSim("🐝 Flying toward the sticky landing surface of the female stigma...");
+                }, 3000);
+
+                // Landing and Pollination
+                setTimeout(() => {
+                    logSim("🎉 SUCCESS! Pollen has been deposited onto the sticky stigma.", "text-emerald-400");
+                    const loadedPollen = document.getElementById('loaded-pollen');
+                    if(loadedPollen) {
+                        loadedPollen.style.top = "50px";
+                        loadedPollen.style.left = "100px";
+                    }
+                }, 4300);
+
+                // Tube growth and Fertilisation
+                setTimeout(() => {
+                    logSim("🔬 Pollen tube growth triggered! Tunneling down the style toward the ovary...", "text-rose-300");
+                    tube.style.strokeDashoffset = "0";
+                }, 5500);
+
+                setTimeout(() => {
+                    logSim("✨ FERTILISATION COMPLETE! Pollen tube has reached the egg inside the ovule.", "text-emerald-300");
+                    document.getElementById('fertilize-success').classList.remove('opacity-0', 'pointer-events-none');
+                }, 7800);
+
+            } else if (type === 'wind') {
+                logSim("[SYSTEM] Simulating strong wind current...", "text-sky-400");
+                
+                // Spawn wind particles blowing across screen
+                for (let i = 0; i < 8; i++) {
+                    const p = document.createElement('div');
+                    p.className = "absolute w-1.5 h-1.5 bg-yellow-300 rounded-full transition-all duration-[1500ms] ease-out";
+                    p.style.left = "10px";
+                    p.style.top = `${50 + Math.random()*150}px`;
+                    pollenContainer.appendChild(p);
+                    
+                    setTimeout(() => {
+                        p.style.left = "400px";
+                        p.style.top = `${20 + Math.random()*200}px`;
+                    }, 50);
+                }
+
+                setTimeout(() => {
+                    logSim("🌬️ Wind is carrying loose pollen grains from anthers across the area...");
+                }, 400);
+
+                // Simulate landing on stigma
+                setTimeout(() => {
+                    const stigmaPollen = document.createElement('div');
+                    stigmaPollen.className = "absolute w-2 h-2 bg-yellow-400 rounded-full";
+                    stigmaPollen.style.top = "50px";
+                    stigmaPollen.style.left = "100px";
+                    pollenContainer.appendChild(stigmaPollen);
+                    logSim("🎉 SUCCESS! Wind currents deposited pollen particles on sticky stigma.", "text-emerald-400");
+                }, 1400);
+
+                // Tube growth and Fertilisation
+                setTimeout(() => {
+                    logSim("🔬 Pollen tube growing down style corridor...", "text-rose-300");
+                    tube.style.strokeDashoffset = "0";
+                }, 2600);
+
+                setTimeout(() => {
+                    logSim("✨ FERTILISATION COMPLETE! Nucleus joined female egg in the ovule.", "text-emerald-300");
+                    document.getElementById('fertilize-success').classList.remove('opacity-0', 'pointer-events-none');
+                }, 4800);
+            }
+        }
+
+        function resetPollination() {
+            const bee = document.getElementById('bee-sprite');
+            bee.style.left = "-50px";
+            bee.style.top = "20px";
+            document.getElementById('pollen-container').innerHTML = '';
+            document.getElementById('sim-pollen-tube').style.strokeDashoffset = "1000";
+            document.getElementById('fertilize-success').classList.add('opacity-0', 'pointer-events-none');
+            document.getElementById('sim-status').innerHTML = '<p class="text-slate-400">[SYSTEM] Simulator reset. Awaiting new vector input...</p>';
+        }
+
+        // Section 3: Metabolism & Oxygen swap animation
+        function toggleCellOxygen(element) {
+            const tag = element.querySelector('.gas-tag');
+            if (tag.innerText.includes("Oxygen")) {
+                tag.innerText = "Carbon Dioxide (CO₂)";
+                tag.className = "gas-tag absolute -top-4 bg-sky-500 text-white text-[9px] px-1.5 py-0.5 rounded font-bold transition-colors";
+            } else {
+                tag.innerText = "Oxygen (O₂)";
+                tag.className = "gas-tag absolute -top-4 bg-emerald-500 text-white text-[9px] px-1.5 py-0.5 rounded font-bold transition-colors";
+            }
+        }
+
+        function checkChemicalEquation() {
+            const p1 = document.getElementById('eq-product-1').value;
+            const p2 = document.getElementById('eq-product-2').value;
+            const resultBox = document.getElementById('eq-result');
+
+            if (p1 === 'glucose' && p2 === 'oxygen') {
+                resultBox.className = "mt-4 text-xs font-semibold py-1.5 rounded-xl bg-emerald-100 text-emerald-800 block";
+                resultBox.innerHTML = "🎉 EXCELLENT! Photosynthesis uses Carbon Dioxide and Water to create Glucose and Oxygen.";
+            } else if (p1 !== '' && p2 !== '') {
+                resultBox.className = "mt-4 text-xs font-semibold py-1.5 rounded-xl bg-rose-100 text-rose-800 block";
+                resultBox.innerHTML = "❌ NOT QUITE. Remember: Carbon Dioxide + Water ➔ Glucose + Oxygen.";
+            } else {
+                resultBox.classList.add('hidden');
+            }
+        }
+
+        // Section 4: Assessment Engine (Interactive Worksheet Hub)
+        let studentAnswersTF = { a: null, b: null, c: null, d: null };
+
+        function selectTF(id, val) {
+            studentAnswersTF[id] = val;
+            const trueBtn = document.getElementById(`tf-${id}-true`);
+            const falseBtn = document.getElementById(`tf-${id}-false`);
+
+            if (val === 'true') {
+                trueBtn.className = "tf-btn px-4 py-1.5 rounded-lg border-2 border-emerald-500 text-xs font-extrabold bg-emerald-100 text-emerald-800 transition-all";
+                falseBtn.className = "tf-btn px-4 py-1.5 rounded-lg border border-slate-200 text-xs font-bold bg-slate-50 hover:bg-slate-100 transition-all";
+            } else {
+                falseBtn.className = "tf-btn px-4 py-1.5 rounded-lg border-2 border-emerald-500 text-xs font-extrabold bg-emerald-100 text-emerald-800 transition-all";
+                trueBtn.className = "tf-btn px-4 py-1.5 rounded-lg border border-slate-200 text-xs font-bold bg-slate-50 hover:bg-slate-100 transition-all";
+            }
+        }
+
+        function calculateWrittenScore(text, keywords, targetMarks) {
+            let matches = 0;
+            const normalizedText = text.toLowerCase();
+            keywords.forEach(kw => {
+                if (normalizedText.includes(kw)) matches++;
             });
 
-            sections.forEach(section => {
-                observer.observe(section);
+            // Standard threshold matching for automated written grading
+            if (matches >= Math.ceil(keywords.length / 2)) return targetMarks;
+            if (matches > 0) return Math.min(Math.ceil(targetMarks / 2), targetMarks);
+            return 0;
+        }
+
+        function gradeAllAssessmentSheets(event) {
+            event.preventDefault();
+            let score = 0;
+
+            // --- Question 26 Grading (4 Marks) ---
+            const lbl1 = document.getElementById('lbl-1').value;
+            const lbl2 = document.getElementById('lbl-2').value;
+            const lbl3 = document.getElementById('lbl-3').value;
+            const lbl4 = document.getElementById('lbl-4').value;
+            const grade26 = document.getElementById('grade-26');
+            let q26Marks = 0;
+
+            if (lbl1 === 'anther') q26Marks++;
+            if (lbl2 === 'sepal') q26Marks++;
+            if (lbl3 === 'ovary') q26Marks++;
+            if (lbl4 === 'stigma') q26Marks++;
+            
+            score += q26Marks;
+            grade26.classList.remove('hidden');
+            if (q26Marks === 4) {
+                grade26.className = "mt-3 text-xs font-bold text-emerald-600";
+                grade26.innerHTML = `✓ Perfect! 4/4 Marks awarded. (Labels match: anther, sepal, ovary, stigma).`;
+            } else {
+                grade26.className = "mt-3 text-xs font-bold text-amber-600";
+                grade26.innerHTML = `⚠ Score: ${q26Marks}/4. Correct answers are: 1. anther, 2. sepal, 3. ovary, 4. stigma.`;
+            }
+
+            // --- Question 27 Grading (2 Marks) ---
+            const ans27 = document.getElementById('ans-27').value;
+            const keywords27 = ['pollen', 'transfer', 'anther', 'stigma', 'from', 'to'];
+            const q27Marks = calculateWrittenScore(ans27, keywords27, 2);
+            score += q27Marks;
+            
+            const grade27 = document.getElementById('grade-27');
+            const model27 = document.getElementById('model-27');
+            grade27.classList.remove('hidden');
+            model27.classList.remove('hidden');
+            grade27.className = q27Marks > 0 ? "mt-3 text-xs font-bold text-emerald-600" : "mt-3 text-xs font-bold text-rose-600";
+            grade27.innerHTML = `Auto-Graded: ${q27Marks}/2 Marks. Review the teacher guidelines below:`;
+
+            // --- Question 28 Grading (4 Marks) ---
+            let q28Marks = 0;
+            const answersKey28 = { a: 'true', b: 'false', c: 'false', d: 'false' };
+            
+            ['a', 'b', 'c', 'd'].forEach(letter => {
+                if (studentAnswersTF[letter] === answersKey28[letter]) {
+                    q28Marks++;
+                }
             });
-        });
+            score += q28Marks;
+            const grade28 = document.getElementById('grade-28');
+            grade28.classList.remove('hidden');
+            if (q28Marks === 4) {
+                grade28.className = "mt-3 text-xs font-bold text-emerald-600";
+                grade28.innerHTML = `✓ 4/4 Marks. All True/False checks correct! (a: True, b: False, c: False, d: False).`;
+            } else {
+                grade28.className = "mt-3 text-xs font-bold text-amber-600";
+                grade28.innerHTML = `⚠ Score: ${q28Marks}/4. Key: a) True, b) False, c) False, d) False.`;
+            }
+
+            // --- Question 29 Grading (2 Marks) ---
+            const ans29 = document.getElementById('ans-29').value;
+            const keywords29 = ['competition', 'light', 'water', 'nutrients', 'space', 'new', 'grow', 'reduce', 'parent'];
+            const q29Marks = calculateWrittenScore(ans29, keywords29, 2);
+            score += q29Marks;
+            
+            const grade29 = document.getElementById('grade-29');
+            const model29 = document.getElementById('model-29');
+            grade29.classList.remove('hidden');
+            model29.classList.remove('hidden');
+            grade29.className = q29Marks > 0 ? "mt-3 text-xs font-bold text-emerald-600" : "mt-3 text-xs font-bold text-rose-600";
+            grade29.innerHTML = `Auto-Graded: ${q29Marks}/2 Marks. Compare your logic below:`;
+
+            // --- Question 30 MCQ (1 Mark) ---
+            const ans30 = document.querySelector('input[name="ans-30"]:checked')?.value;
+            const grade30 = document.getElementById('grade-30');
+            grade30.classList.remove('hidden');
+            if (ans30 === 'C') {
+                score += 1;
+                grade30.className = "mt-3 text-xs font-bold text-emerald-600";
+                grade30.innerHTML = "✓ 1/1 Mark. Correct! Chloroplast units store chlorophyll pigments.";
+            } else {
+                grade30.className = "mt-3 text-xs font-bold text-rose-600";
+                grade30.innerHTML = "✗ 0/1 Mark. Incorrect. The correct answer is C. Chloroplast.";
+            }
+
+            // --- Question 31 MCQ (1 Mark) ---
+            const ans31 = document.querySelector('input[name="ans-31"]:checked')?.value;
+            const grade31 = document.getElementById('grade-31');
+            grade31.classList.remove('hidden');
+            if (ans31 === 'B') {
+                score += 1;
+                grade31.className = "mt-3 text-xs font-bold text-emerald-600";
+                grade31.innerHTML = "✓ 1/1 Mark. Correct! Oxygen gas is generated and released.";
+            } else {
+                grade31.className = "mt-3 text-xs font-bold text-rose-600";
+                grade31.innerHTML = "✗ 0/1 Mark. Incorrect. The correct answer is B. Oxygen.";
+            }
+
+            // --- Question 32 Challenge (4 Marks) ---
+            const ans32 = document.getElementById('ans-32').value;
+            const keywords32 = ['wind', 'water', 'animal', 'explosion', 'explosions', 'eat', 'fruit', 'hook', 'float'];
+            const q32Marks = calculateWrittenScore(ans32, keywords32, 4);
+            score += q32Marks;
+            
+            const grade32 = document.getElementById('grade-32');
+            const model32 = document.getElementById('model-32');
+            grade32.classList.remove('hidden');
+            model32.classList.remove('hidden');
+            grade32.className = q32Marks > 0 ? "mt-3 text-xs font-bold text-emerald-600" : "mt-3 text-xs font-bold text-rose-600";
+            grade32.innerHTML = `Auto-Graded: ${q32Marks}/4 Marks. Check key concepts:`;
+
+            // --- Question 33 Challenge (2 Marks) ---
+            const ans33 = document.getElementById('ans-33').value;
+            const keywords33 = ['pollination', 'reproduction', 'less', 'reduce', 'fertilization', 'seeds', 'fewer', 'transfer'];
+            const q33Marks = calculateWrittenScore(ans33, keywords33, 2);
+            score += q33Marks;
+            
+            const grade33 = document.getElementById('grade-33');
+            const model33 = document.getElementById('model-33');
+            grade33.classList.remove('hidden');
+            model33.classList.remove('hidden');
+            grade33.className = q33Marks > 0 ? "mt-3 text-xs font-bold text-emerald-600" : "mt-3 text-xs font-bold text-rose-600";
+            grade33.innerHTML = `Auto-Graded: ${q33Marks}/2 Marks. Compare your logic:`;
+
+            // --- Question 34 Respiration MCQ (1 Mark) ---
+            const ans34 = document.querySelector('input[name="ans-34"]:checked')?.value;
+            const grade34 = document.getElementById('grade-34');
+            grade34.classList.remove('hidden');
+            if (ans34 === 'B') {
+                score += 1;
+                grade34.className = "mt-3 text-xs font-bold text-emerald-600";
+                grade34.innerHTML = "✓ 1/1 Mark. Correct! Cellular respiration releases chemical energy from food cells.";
+            } else {
+                grade34.className = "mt-3 text-xs font-bold text-rose-600";
+                grade34.innerHTML = "✗ 0/1 Mark. Incorrect. The correct answer is B.";
+            }
+
+            // Global Performance Sheet Update
+            document.getElementById('global-score').innerText = score;
+            document.getElementById('live-final-score').innerText = `${score} / 21`;
+            
+            // Render beautiful custom toast alert
+            const notification = document.createElement('div');
+            notification.className = "fixed bottom-4 right-4 bg-slate-900 text-white p-4 rounded-xl shadow-lg border border-slate-700 text-xs font-semibold max-w-xs z-50 animate-bounce";
+            notification.innerHTML = `🏁 Sheet graded! Your final score has been loaded onto the top dashboard tracker: <strong>${score}/21 Marks</strong>.`;
+            document.body.appendChild(notification);
+            setTimeout(() => { notification.remove(); }, 6000);
+        }
+
+        function resetAssessmentForm() {
+            document.getElementById('syllabus-form').reset();
+            studentAnswersTF = { a: null, b: null, c: null, d: null };
+            document.querySelectorAll('.tf-btn').forEach(btn => {
+                btn.className = "tf-btn px-4 py-1.5 rounded-lg border border-slate-200 text-xs font-bold bg-slate-50 hover:bg-slate-100 transition-all";
+            });
+            document.querySelectorAll('[id^="grade-"]').forEach(box => box.classList.add('hidden'));
+            document.querySelectorAll('[id^="model-"]').forEach(box => box.classList.add('hidden'));
+            document.getElementById('global-score').innerText = "0";
+            document.getElementById('live-final-score').innerText = "0 / 21";
+        }
+
+        // Initialize Lucide icons and initial states on page load
+        window.onload = function () {
+            lucide.createIcons();
+            // Select default anatomy component on load
+            selectAnatomy('Anther');
+        };
     </script>
-
 </body>
 </html>
